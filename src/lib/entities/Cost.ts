@@ -1,6 +1,6 @@
 interface Cost {
-    amount: number;
-    currency: string;
+	amount: number;
+	currency: string;
 }
 
 export type { Cost };
