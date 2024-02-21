@@ -1,10 +1,10 @@
 import type { Activity } from '$lib/entities/Activity';
 
-interface Day {
+interface TripDay {
 	id: string;
 	date: string;
-	name: string;
+	name?: string;
 	activities: Activity[];
 }
 
-export type { Day };
+export type { TripDay };
