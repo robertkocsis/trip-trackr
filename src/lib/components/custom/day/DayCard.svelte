@@ -22,10 +22,10 @@
 		<h1 class="text-2xl">{day.name}</h1>
 		{#each day.activities as activity, index}
 			{#if activityLimit === undefined || index < activityLimit}
-				<Card.Root class="w-72 m-w-72">
+				<Card.Root class="w-96 m-w-96">
 					<Card.Header class="pb-3">
-						<Card.Title class="flex"
-							>{activity.name}
+						<Card.Title class="flex">
+							{activity.name}
 							{#if activity.cost}
 								<p class="text-xs text-muted-foreground ml-1">
 									{activity.cost.amount}{activity.cost.currency}
@@ -45,8 +45,8 @@
 {:else}
 	<Card.Root class="w-72 m-w-72">
 		<Card.Header class="pb-3">
-			<Card.Title class="flex"
-				>{day.name}
+			<Card.Title class="flex">
+				{day.name}
 				<p class="text-xs text-muted-foreground ml-1">
 					{calculateDayCost()}$
 				</p>
@@ -55,7 +55,7 @@
 		<Card.Content>
 			<div class="grid space-y-1">
 				<p class="text-xs text-muted-foreground line-clamp-3">
-					number of activities: {day.activities.length}
+					activities: {day.activities.length}
 				</p>
 			</div>
 		</Card.Content>

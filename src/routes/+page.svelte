@@ -6,8 +6,8 @@
 
 	const calculateTripCost = () => {
 		let cost = 0;
-		trip.days.forEach(day => {
-			day.activities.forEach(activity => {
+		trip.days.forEach((day) => {
+			day.activities.forEach((activity) => {
 				if (activity.cost) {
 					cost += activity.cost.amount;
 				}
@@ -28,7 +28,9 @@
 
 <div class="grid gap-x-2 gap-y-10">
 	{#each trip.days as day}
-		<DayCard {day} activityLimit={3} />
+		<a href="day/{day.id}">
+			<DayCard {day} activityLimit={3} />
+		</a>
 	{/each}
 </div>
 
