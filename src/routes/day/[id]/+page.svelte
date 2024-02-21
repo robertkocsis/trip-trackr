@@ -1,8 +1,6 @@
 <script lang="ts">
-	import DayCard from './../../../lib/components/custom/day/DayCard.svelte';
-	import { createTrip } from '../../mockdata';
-
-	let trip = createTrip();
+	import { currentTrip } from '$lib/stores/currentTrip.store';
+	import DayCard from '$components/custom/day/DayCard.svelte';
 </script>
 
-<DayCard day={trip.days[0]} expanded={true} />
+<DayCard day={$currentTrip.days[0]} expanded={true} />
