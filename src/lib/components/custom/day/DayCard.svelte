@@ -1,10 +1,13 @@
 <script lang="ts">
 	import * as Card from '$components/ui/card';
-	import type { Day } from '$entities/Day';
+	import type { TripDay } from '$lib/entities/Day';
+	import { createEventDispatcher } from 'svelte';
 
-	export let day: Day;
+	export let day: TripDay;
 	export let activityLimit: number | undefined = undefined;
 	export let expanded: boolean = false;
+
+	const dispatch = createEventDispatcher();
 
 	const calculateDayCost = () => {
 		let cost = 0;
@@ -31,7 +34,9 @@
 
 		{#each day.activities as activity, index}
 			{#if activityLimit === undefined || index < activityLimit}
-				<Card.Root class="w-96 m-w-96">
+				<Card.Root
+					class="w-96 m-w-96 cursor-pointer"
+					on:click={() => dispatch('activitySelected', { activity })}>
 					<Card.Header class="pb-3">
 						<Card.Title class="flex">
 							{activity.name}

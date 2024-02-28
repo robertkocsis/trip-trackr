@@ -21,7 +21,7 @@
 </script>
 
 {#if day}
-	<a href="/day/1">
+	<a href={`/day/${day.id}`}>
 		<Card.Root class="rounded-none border-none">
 			<Card.Header>
 				<Card.Title class="flex">

@@ -9,6 +9,8 @@
 </script>
 
 <div
+	on:click
+	role="presentation"
 	class={cn('rounded-lg border bg-card text-card-foreground shadow-sm', className)}
 	{...$$restProps}>
 	<slot />

@@ -36,7 +36,7 @@
 	{#each $days.daysBefore as date}
 		<CalendarDay {date}></CalendarDay>
 	{/each}
-	{#each $days.tripDays as date, index}
+	{#each $days.tripDays as date}
 		<CalendarDay {date} day={getTripDay($currentTrip, date)}></CalendarDay>
 	{/each}
 	{#each $days.daysAfter as date}
