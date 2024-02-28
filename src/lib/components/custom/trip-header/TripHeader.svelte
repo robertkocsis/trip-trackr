@@ -16,9 +16,9 @@
 	};
 </script>
 
-<div class="mb-6">
+<div>
 	<div class="flex space-x-1">
-		<h2 class="text-3xl font-bold">{$currentTrip.name}</h2>
+		<a class="text-3xl font-bold block" href={`/trip/${$currentTrip.id}`}>{$currentTrip.name}</a>
 		<span class="text-sm text-muted-foreground">{calculateTripCost($currentTrip)}$</span>
 	</div>
 
