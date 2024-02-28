@@ -4,7 +4,7 @@ interface Activity {
 	id: string;
 	name: string;
 	cost?: Cost;
-	description?: string;
+	description: string;
 }
 
 export type { Activity };

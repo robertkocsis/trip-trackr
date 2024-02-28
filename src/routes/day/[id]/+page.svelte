@@ -1,12 +1,24 @@
 <script lang="ts">
 	import ActivityCard from '$components/custom/activity/ActivityCard.svelte';
+	import ActivityForm from '$components/custom/activity/form/ActivityForm.svelte';
+	import type { ActivityFormSchema } from '$components/custom/activity/form/schema';
 	import DayCard from '$components/custom/day/DayCard.svelte';
 	import TripHeader from '$components/custom/trip-header/TripHeader.svelte';
 	import type { Activity } from '$lib/entities/Activity';
 	import type { TripDay } from '$lib/entities/Day';
+	import type { Infer, SuperValidated } from 'sveltekit-superforms';
 
-	export let data: { day: TripDay };
+	export let data: { day: TripDay; form: SuperValidated<Infer<ActivityFormSchema>> };
 	export let selectedActivity: Activity | undefined = undefined;
+
+	$: {
+		console.log(data);
+		data.form.data = {
+			name: selectedActivity?.name ?? '',
+			cost: selectedActivity?.cost?.amount ?? 0,
+			description: selectedActivity?.description ?? ''
+		};
+	}
 </script>
 
 <div class="grid grid-flow-col grid-cols-2">
