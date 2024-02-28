@@ -19,7 +19,16 @@
 
 {#if expanded}
 	<div class="flex flex-col space-y-3 w-96 m-w-96">
-		<h1 class="text-2xl">{day.name}</h1>
+		<div>
+			<div class="flex space-x-1">
+				<h2 class="text-2xl font-bold">{day.name}</h2>
+				<span class="text-sm text-muted-foreground">{calculateDayCost()}$</span>
+			</div>
+			<p class="text-sm text-muted-foreground">
+				{new Date(day.date).toDateString()}
+			</p>
+		</div>
+
 		{#each day.activities as activity, index}
 			{#if activityLimit === undefined || index < activityLimit}
 				<Card.Root class="w-96 m-w-96">
