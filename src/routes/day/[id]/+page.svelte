@@ -14,7 +14,7 @@
 	let editMode = false;
 </script>
 
-<div class="grid grid-flow-col grid-cols-2">
+<div class="grid grid-flow-col grid-cols-2 px-20 py-14">
 	<div class="space-y-6">
 		<TripHeader showBackButton></TripHeader>
 		<div class="flex justify-start items-center">

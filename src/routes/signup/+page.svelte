@@ -1,0 +1,45 @@
+<script>
+	import Button from '$components/ui/button/button.svelte';
+	import { Input } from '$components/ui/input';
+</script>
+
+<main class="min-h-screen grid grid-cols-2">
+	<div class="pt-20 bg-foreground pl-8 flex flex-col min-h-screen">
+		<h1 class="text-9xl font-bold mb-4 text-background">Trip Trackr</h1>
+		<p class="mb-8 text-xl text-background opacity-80 ml-4">
+			Track and manage your trips with ease!
+		</p>
+	</div>
+	<div class="bg-background mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+		<div class="flex flex-col space-y-2 text-center">
+			<h1 class="text-2xl font-semibold tracking-tight">Create an account</h1>
+			<p class="text-sm text-muted-foreground">Enter your email below to create your account</p>
+		</div>
+		<div class="sm:w-[350px] flex flex-col space-y-2">
+			<Input
+				id="email"
+				placeholder="name@example.com"
+				type="email"
+				autocapitalize="none"
+				autocomplete="email"
+				autocorrect="off" />
+			<Input id="password" placeholder="Password" type="password" />
+			<Input id="passwordConfirm" placeholder="Password confirm" type="password" />
+			<Button>Sign Up</Button>
+		</div>
+
+		<p class="px-8 text-center text-sm text-muted-foreground">
+			By clicking continue, you agree to our{' '}
+			<a href="/terms" class="underline underline-offset-4 hover:text-primary">Terms of Service</a>
+			{' '}
+			and{' '}
+			<a href="/privacy" class="underline underline-offset-4 hover:text-primary">Privacy Policy</a>
+			.
+		</p>
+
+		<p class="px-8 text-center text-sm text-muted-foreground">
+			Already have an account?
+			<a href="/login" class="underline underline-offset-4 hover:text-primary">Log in</a>
+		</p>
+	</div>
+</main>

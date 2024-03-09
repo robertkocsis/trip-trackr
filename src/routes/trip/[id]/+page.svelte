@@ -3,7 +3,7 @@
 	import TripHeader from '$components/custom/trip-header/TripHeader.svelte';
 </script>
 
-<div class="space-y-6">
+<div class="space-y-6 px-20 py-14">
 	<TripHeader></TripHeader>
 	<CalendarView></CalendarView>
 </div>
