@@ -2,14 +2,22 @@
 	import Textarea from '$components/ui/textarea/textarea.svelte';
 	import * as Form from '$lib/components/ui/form';
 	import { Input } from '$lib/components/ui/input';
+	import { createEventDispatcher } from 'svelte';
 	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { activityFormSchema, type ActivityFormSchema } from './schema';
 
 	export let data: SuperValidated<Infer<ActivityFormSchema>>;
 
+	const dispatch = createEventDispatcher();
+
 	const form = superForm(data, {
-		validators: zodClient(activityFormSchema)
+		validators: zodClient(activityFormSchema),
+		onUpdated({ form }) {
+			if (form.valid) {
+				dispatch('editSuccessful');
+			}
+		}
 	});
 
 	const { form: formData, enhance } = form;

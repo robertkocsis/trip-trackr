@@ -13,8 +13,13 @@ export async function load({ params }) {
 	if (!day) {
 		redirect(302, `/trip/${trip.id}`);
 	} else {
+		const activity = {
+			name: day.activities[0]?.name ?? '',
+			cost: day.activities[0]?.cost?.amount ?? 0,
+			description: day.activities[0]?.description ?? ''
+		};
 		return {
-			form: await superValidate(zod(activityFormSchema)),
+			form: await superValidate(activity,zod(activityFormSchema)),
 			day
 		};
 	}

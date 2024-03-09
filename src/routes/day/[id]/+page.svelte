@@ -11,14 +11,7 @@
 	export let data: { day: TripDay; form: SuperValidated<Infer<ActivityFormSchema>> };
 	export let selectedActivity: Activity | undefined = undefined;
 
-	$: {
-		console.log(data);
-		data.form.data = {
-			name: selectedActivity?.name ?? '',
-			cost: selectedActivity?.cost?.amount ?? 0,
-			description: selectedActivity?.description ?? ''
-		};
-	}
+	let editMode = false;
 </script>
 
 <div class="grid grid-flow-col grid-cols-2">
@@ -33,10 +26,15 @@
 	</div>
 	<div>
 		{#if selectedActivity}
-			<ActivityCard activity={selectedActivity}></ActivityCard>
+			{#if editMode}
+				<ActivityForm data={data.form} on:editSuccessful={() => (editMode = false)}></ActivityForm>
+			{:else}
+				<ActivityCard activity={selectedActivity} on:editClicked={() => (editMode = true)}
+				></ActivityCard>
+			{/if}
 		{/if}
 		{#if !selectedActivity}
-			<ActivityCard activity={data.day.activities[0]}></ActivityCard>
+			Please select an activity
 		{/if}
 	</div>
 </div>
