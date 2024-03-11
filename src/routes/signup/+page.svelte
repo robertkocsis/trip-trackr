@@ -1,9 +1,9 @@
 <script>
-	import Button from '$components/ui/button/button.svelte';
-	import { Input } from '$components/ui/input';
+	import { fade } from 'svelte/transition';
+	import SignupForm from './(components)/SignupForm.svelte';
 </script>
 
-<main class="min-h-screen grid grid-cols-2">
+<main class="min-h-screen grid grid-cols-2" in:fade>
 	<div class="pt-20 bg-foreground pl-8 flex flex-col min-h-screen">
 		<h1 class="text-9xl font-bold mb-4 text-background">Trip Trackr</h1>
 		<p class="mb-8 text-xl text-background opacity-80 ml-4">
@@ -15,17 +15,8 @@
 			<h1 class="text-2xl font-semibold tracking-tight">Create an account</h1>
 			<p class="text-sm text-muted-foreground">Enter your email below to create your account</p>
 		</div>
-		<div class="sm:w-[350px] flex flex-col space-y-2">
-			<Input
-				id="email"
-				placeholder="name@example.com"
-				type="email"
-				autocapitalize="none"
-				autocomplete="email"
-				autocorrect="off" />
-			<Input id="password" placeholder="Password" type="password" />
-			<Input id="passwordConfirm" placeholder="Password confirm" type="password" />
-			<Button>Sign Up</Button>
+		<div class="sm:w-[350px]">
+			<SignupForm />
 		</div>
 
 		<p class="px-8 text-center text-sm text-muted-foreground">

@@ -19,7 +19,7 @@ export async function load({ params }) {
 			description: day.activities[0]?.description ?? ''
 		};
 		return {
-			form: await superValidate(activity,zod(activityFormSchema)),
+			form: await superValidate(activity, zod(activityFormSchema)),
 			day
 		};
 	}
