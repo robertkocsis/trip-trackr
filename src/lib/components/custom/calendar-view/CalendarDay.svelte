@@ -28,12 +28,12 @@
 					<p>
 						{day.name}
 					</p>
-					<p class="text-xs text-muted-foreground ml-1">3$</p>
+					<p class="ml-1 text-xs text-muted-foreground">3$</p>
 				</Card.Title>
 			</Card.Header>
 			<Card.Content>
 				<div class="grid space-y-1">
-					<p class="text-xs text-muted-foreground line-clamp-3">
+					<p class="line-clamp-3 text-xs text-muted-foreground">
 						activities: {day.activities.length}
 					</p>
 				</div>
@@ -48,11 +48,11 @@
 		</Card.Root>
 	</a>
 {:else}
-	<Card.Root class="rounded-none opacity-30 border-none">
+	<Card.Root class="rounded-none border-none opacity-30">
 		<Card.Header>
-			<Card.Title class="opacity-0 select-none">lorem</Card.Title>
+			<Card.Title class="select-none opacity-0">lorem</Card.Title>
 		</Card.Header>
-		<Card.Content class="opacity-0 select-none">ipsum</Card.Content>
+		<Card.Content class="select-none opacity-0">ipsum</Card.Content>
 		<Card.Footer>
 			{#if date.getDate() === 1}
 				<p class="text-muted-foreground">{months[date.getMonth()]} 1st</p>

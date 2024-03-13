@@ -2,7 +2,7 @@
 	import { currentUser } from '$lib/stores/currentUser.store';
 </script>
 
-<div class="flex justify-end my-4 mx-8">
+<div class="flex justify-end border-b px-8 py-4">
 	{#if $currentUser}
 		<a class="text-foreground" href="/logout" data-sveltekit-preload-data="tap">
 			Logout ({$currentUser.email})

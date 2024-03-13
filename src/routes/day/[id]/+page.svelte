@@ -17,7 +17,7 @@
 <div class="grid grid-flow-col grid-cols-2 px-20 py-14">
 	<div class="space-y-6">
 		<TripHeader showBackButton></TripHeader>
-		<div class="flex justify-start items-center">
+		<div class="flex items-center justify-start">
 			<DayCard
 				day={data.day}
 				expanded={true}

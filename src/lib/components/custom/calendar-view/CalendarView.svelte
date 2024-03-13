@@ -31,7 +31,7 @@
 
 <div class="grid grid-flow-row grid-cols-7 gap-4">
 	{#each weekdays as weekday}
-		<div class="text-sm text-muted-foreground text-center">{weekday}</div>
+		<div class="text-center text-sm text-muted-foreground">{weekday}</div>
 	{/each}
 	{#each $days.daysBefore as date}
 		<CalendarDay {date}></CalendarDay>

@@ -3,14 +3,14 @@
 	import LoginForm from './(components)/LoginForm.svelte';
 </script>
 
-<main class="min-h-screen grid grid-cols-2" in:fade>
-	<div class="pt-20 bg-foreground pl-8 flex flex-col min-h-screen">
-		<h1 class="text-9xl font-bold mb-4 text-background text-large">Trip Trackr</h1>
-		<p class="mb-8 text-xl text-background opacity-80 ml-4">
+<main class="grid min-h-screen grid-cols-2" in:fade>
+	<div class="flex min-h-screen flex-col bg-foreground pl-8 pt-20">
+		<h1 class="text-large mb-4 text-9xl font-bold text-background">Trip Trackr</h1>
+		<p class="mb-8 ml-4 text-xl text-background opacity-80">
 			Track and manage your trips with ease!
 		</p>
 	</div>
-	<div class="bg-background mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+	<div class="mx-auto flex w-full flex-col justify-center space-y-6 bg-background sm:w-[350px]">
 		<div class="flex flex-col text-center">
 			<h1 class="text-2xl font-semibold tracking-tight">Welcome back!</h1>
 		</div>

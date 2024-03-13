@@ -21,7 +21,7 @@
 
 <div>
 	<div class="flex space-x-1">
-		<a href={`/trip/${$currentTrip.id}`} class="flex space-x-1 items-center">
+		<a href={`/trip/${$currentTrip.id}`} class="flex items-center space-x-1">
 			{#if showBackButton}
 				<ArrowLeft />
 			{/if}
