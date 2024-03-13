@@ -16,5 +16,12 @@
 	{#if !['/login', '/signup'].includes($page.url.pathname)}
 		<Header></Header>
 	{/if}
-	<slot />
+
+	{#if $currentUser}
+		<div class="min-w-screen min-h-screen px-16 py-8">
+			<slot />
+		</div>
+	{:else}
+		<slot />
+	{/if}
 </div>

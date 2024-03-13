@@ -5,7 +5,7 @@
 </script>
 
 {#if $currentUser}
-	<div class="min-w-screen flex min-h-screen flex-col px-16 py-8">
+	<div class="min-w-screen flex min-h-screen flex-col">
 		<h1 class="text-3xl font-bold">Welcome back!</h1>
 
 		<div class="flex flex-1 flex-col items-center">
@@ -13,7 +13,7 @@
 				<p class="text-center text-lg text-muted-foreground">
 					It seems like you don't have any trips planned yet. Why not start by creating a new trip?
 				</p>
-				<Button on:click={() => goto('/trip/new')}>Create a new trip</Button>
+				<Button on:click={() => goto('/trip/create')}>Create Trip</Button>
 			</div>
 		</div>
 	</div>
