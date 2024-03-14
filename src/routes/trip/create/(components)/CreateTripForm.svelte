@@ -12,10 +12,11 @@
 	import { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { createTripSchema } from '../(util)/createTrip.schema';
+	import Label from '$components/ui/label/label.svelte';
 
 	const form = superForm(
 		{
-			name: 'Untitled Trip',
+			name: 'My New Trip',
 			description: '',
 			start: '',
 			end: ''
@@ -39,19 +40,25 @@
 		$formData.end = value?.end?.toString() ?? '';
 	}
 
+	const minDate = today(getLocalTimeZone());
+
 	const { form: formData, enhance, message, errors } = form;
 </script>
 
-<form method="POST" use:enhance class="space-y-2">
+<form method="POST" use:enhance>
 	<div class="flex space-x-2">
 		<Form.Field {form} name="name" class="flex-1">
 			<Form.Control let:attrs>
+				<Form.Label>
+					<Label>Name</Label>
+				</Form.Label>
 				<Input {...attrs} bind:value={$formData.name} />
 			</Form.Control>
 			<Form.FieldErrors />
 		</Form.Field>
 		<div class="flex-1 space-y-2">
 			<Popover.Root openFocus>
+				<Label>Dates</Label>
 				<Popover.Trigger asChild let:builder>
 					<Button
 						variant="outline"
@@ -75,7 +82,12 @@
 					</Button>
 				</Popover.Trigger>
 				<Popover.Content class="w-auto p-0" align="start">
-					<RangeCalendar bind:value initialFocus numberOfMonths={2} placeholder={value?.start} />
+					<RangeCalendar
+						bind:value
+						minValue={minDate}
+						initialFocus
+						numberOfMonths={2}
+						placeholder={value?.start} />
 				</Popover.Content>
 			</Popover.Root>
 
@@ -94,10 +106,20 @@
 
 	<Form.Field {form} name="description">
 		<Form.Control let:attrs>
-			<Textarea {...attrs} bind:value={$formData.description} />
+			<Form.Label>
+				<Label>Description</Label>
+			</Form.Label>
+			<Textarea
+				{...attrs}
+				bind:value={$formData.description}
+				placeholder="A trip where I will have an unforgettable experience." />
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
+
+	{#if $message}
+		<p class="text-sm text-destructive">{$message}</p>
+	{/if}
 
 	<Form.Button class="w-full">Create</Form.Button>
 </form>

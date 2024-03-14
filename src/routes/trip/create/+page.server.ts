@@ -1,5 +1,5 @@
-import { fail, type Actions } from '@sveltejs/kit';
-import { superValidate } from 'sveltekit-superforms';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { createTripSchema } from './(util)/createTrip.schema';
 
@@ -11,8 +11,17 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
-		event.locals.pb.collection('trips').create(form.data);
+		let tripId = '';
 
-		return { form };
+		try {
+			tripId = (
+				await event.locals.pb.collection('trips').create({ ...form.data, user: event.locals.id })
+			).id;
+		} catch (error) {
+			return message(form, 'An unexpected error occurred during the trip creation', {
+				status: 500
+			});
+		}
+		return redirect(303, `/trip/${tripId}`);
 	}
 };

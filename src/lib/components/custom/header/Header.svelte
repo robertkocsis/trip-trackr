@@ -1,12 +1,17 @@
 <script lang="ts">
+	import Button from '$components/ui/button/button.svelte';
 	import { currentUser } from '$lib/stores/currentUser.store';
 </script>
 
-<div class="flex justify-end border-b px-8 py-4">
+<div class="flex space-x-4 border-b px-8 py-2">
 	{#if $currentUser}
-		<a class="text-foreground" href="/logout" data-sveltekit-preload-data="tap">
-			Logout ({$currentUser.email})
-		</a>
+		<div class="flex items-center">PLACEHOLDER BOX</div>
+		<Button href="/" variant="link">My trips</Button>
+		<div class="flex flex-1 justify-end">
+			<Button variant="link" href="/logout" data-sveltekit-preload-data="tap">
+				Logout ({$currentUser.email})
+			</Button>
+		</div>
 	{:else}
 		<a class="text-foreground" href="/login">Log in</a>
 	{/if}
