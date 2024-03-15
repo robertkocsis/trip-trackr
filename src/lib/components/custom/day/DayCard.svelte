@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Card from '$components/ui/card';
-	import type { TripDay } from '$lib/entities/Day';
+	import type { TripDay } from '$lib/entities/TripDay';
 	import { createEventDispatcher } from 'svelte';
 
 	export let day: TripDay;

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Card from '$components/ui/card';
-	import type { TripDay } from '$lib/entities/Day';
+	import type { TripDay } from '$lib/entities/TripDay';
 	export let day: TripDay | undefined = undefined;
 	export let date: Date;
 

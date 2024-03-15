@@ -9,5 +9,6 @@
 {#if data.trip}
 	<div class="space-y-6">
 		<TripHeader trip={data.trip}></TripHeader>
+		<CalendarView trip={data.trip}></CalendarView>
 	</div>
 {/if}

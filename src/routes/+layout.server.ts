@@ -1,13 +1,16 @@
+import type { User } from '$lib/entities/User.js';
 import { redirect } from '@sveltejs/kit';
-import type { AuthModel } from 'pocketbase';
 
 export const load = async ({ locals }) => {
 	if (locals.id) {
 		try {
-			const user = await locals.pb.authStore.model;
+			const user = (await locals.pb.authStore.model) as User;
 			return {
-				user
-			} as { user?: AuthModel };
+				user: {
+					id: user.id,
+					email: user.email
+				}
+			} as { user?: User };
 		} catch {
 			return redirect(303, '/');
 		}

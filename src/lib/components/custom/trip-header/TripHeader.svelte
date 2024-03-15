@@ -1,9 +1,9 @@
 <script lang="ts">
+	import type { Trip } from '$lib/entities/Trip';
 	import { DateFormatter } from '@internationalized/date';
 	import { ArrowLeft } from 'lucide-svelte';
-	import type { RecordModel } from 'pocketbase';
 
-	export let trip: RecordModel;
+	export let trip: Trip;
 
 	const df = new DateFormatter('en-US', {
 		dateStyle: 'medium'

@@ -15,6 +15,11 @@
 			</Button>
 		</div>
 	{:else}
-		<a class="text-foreground" href="/login">Log in</a>
+		<div class="flex items-center">
+			<a class="text-3xl font-bold" href="/">trip trackr</a>
+		</div>
+		<div class="flex flex-1 justify-end">
+			<Button variant="link" href="login">Login</Button>
+		</div>
 	{/if}
 </div>

@@ -4,8 +4,8 @@
 	import type { ActivityFormSchema } from '$components/custom/activity/form/schema';
 	import DayCard from '$components/custom/day/DayCard.svelte';
 	import TripHeader from '$components/custom/trip-header/TripHeader.svelte';
-	import type { Activity } from '$lib/entities/Activity';
-	import type { TripDay } from '$lib/entities/Day';
+	import type { Activity } from '$lib/entities/DayItem';
+	import type { TripDay } from '$lib/entities/TripDay';
 	import type { Infer, SuperValidated } from 'sveltekit-superforms';
 
 	export let data: { day: TripDay; form: SuperValidated<Infer<ActivityFormSchema>> };

@@ -1,14 +1,12 @@
 <script lang="ts">
 	import CalendarDay from '$components/custom/calendar-view/CalendarDay.svelte';
 	import { getDaysForCalendar } from '$components/custom/calendar-view/getDaysForCalendar';
-	import type { TripDay } from '$lib/entities/Day';
 	import type { Trip } from '$lib/entities/Trip';
-	import { currentTrip } from '$lib/stores/currentTrip.store';
-	import { derived } from 'svelte/store';
+	import type { TripDay } from '$lib/entities/TripDay';
 
-	let days = derived(currentTrip, ($currentTrip) => {
-		return getDaysForCalendar(new Date($currentTrip.startDate), new Date($currentTrip.endDate));
-	});
+	export let trip: Trip;
+
+	$: days = getDaysForCalendar(new Date(trip.start), new Date(trip.end));
 
 	let weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -21,9 +19,9 @@
 	};
 
 	const getTripDay = (trip: Trip, date: Date): TripDay | undefined => {
-		const result = $currentTrip.days.find((tripDay) => datesEqual(new Date(tripDay.date), date));
+		const result = trip.days.find((tripDay) => datesEqual(new Date(tripDay.date), date));
 		if (result) {
-			result.name = `Day ${$currentTrip.days.indexOf(result) + 1}`;
+			result.name = `Day ${trip.days.indexOf(result) + 1}`;
 		}
 		return result;
 	};
@@ -33,13 +31,13 @@
 	{#each weekdays as weekday}
 		<div class="text-center text-sm text-muted-foreground">{weekday}</div>
 	{/each}
-	{#each $days.daysBefore as date}
+	{#each days.daysBefore as date}
 		<CalendarDay {date}></CalendarDay>
 	{/each}
-	{#each $days.tripDays as date}
-		<CalendarDay {date} day={getTripDay($currentTrip, date)}></CalendarDay>
+	{#each days.tripDays as date}
+		<CalendarDay {date} day={getTripDay(trip, date)}></CalendarDay>
 	{/each}
-	{#each $days.daysAfter as date}
+	{#each days.daysAfter as date}
 		<CalendarDay {date}></CalendarDay>
 	{/each}
 </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Activity } from '$lib/entities/Activity';
+	import type { Activity } from '$lib/entities/DayItem';
 	import { Pencil } from 'lucide-svelte';
 	import { createEventDispatcher } from 'svelte';
 

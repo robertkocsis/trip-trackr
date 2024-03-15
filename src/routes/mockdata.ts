@@ -1,7 +1,7 @@
 import { getDatesBetween } from '$components/custom/calendar-view/getDaysForCalendar';
-import type { Activity } from '$lib/entities/Activity';
-import type { TripDay } from '$lib/entities/Day';
+import type { Activity } from '$lib/entities/DayItem';
 import type { Trip } from '$lib/entities/Trip';
+import type { TripDay } from '$lib/entities/TripDay';
 import { v4 } from 'uuid';
 
 export const createTrip = (): Trip => {

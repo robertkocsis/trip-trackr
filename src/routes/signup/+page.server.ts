@@ -14,14 +14,11 @@ export const actions: Actions = {
 
 		const { email, password, confirm } = form.data;
 
-		const pb = new PocketBase('http://127.0.0.1:8090');
-
 		try {
-			await pb.collection('users').create({ email, password, passwordConfirm: confirm });
-			const { token } = await pb.collection('users').authWithPassword(email, password);
+			const pb = new PocketBase('http://127.0.0.1:8090');
 
-			const { cookies } = event;
-			cookies.set('pb_auth', token, { path: '/' });
+			await pb.collection('users').create({ email, password, passwordConfirm: confirm });
+			await event.locals.pb.collection('users').authWithPassword(email, password);
 		} catch (error) {
 			if (error instanceof ClientResponseError) {
 				if (error.response.data.email) {

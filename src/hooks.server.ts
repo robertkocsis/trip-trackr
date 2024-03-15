@@ -20,7 +20,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const isLogOut: boolean = event.url.pathname === '/logout';
 	if (isLogOut) {
-		console.log('logout');
 		event.locals.pb.authStore.clear();
 		return await updateCookieAndReturn();
 	}
@@ -28,6 +27,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') ?? '');
 
 	if (!event.locals.pb.authStore.isValid) {
+		event.locals.pb.authStore.clear();
+
 		if (event.url.pathname !== '/') {
 			throw redirect(303, '/');
 		}
@@ -39,7 +40,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 		const auth = await event.locals.pb.collection('users').authRefresh();
 		event.locals.id = auth.record.id;
 	} catch {
-		throw redirect(303, '/');
+		event.locals.pb.authStore.clear();
+		return await updateCookieAndReturn();
 	}
 
 	return await updateCookieAndReturn();
