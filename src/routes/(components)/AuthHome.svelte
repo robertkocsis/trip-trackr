@@ -41,9 +41,7 @@
 						{df.format(new Date(trip.start))} - {df.format(new Date(trip.end))}
 					</Card.Description>
 				</Card.Header>
-				<Card.Content>
-					<p>{trip.description}</p>
-				</Card.Content>
+				<Card.Content>You have 0 items for this trip</Card.Content>
 				<Card.Footer class="flex justify-between">
 					<Button
 						variant="ghost"

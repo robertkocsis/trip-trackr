@@ -34,7 +34,7 @@
 			<Card.Content>
 				<div class="grid space-y-1">
 					<p class="line-clamp-3 text-xs text-muted-foreground">
-						activities: {day.activities.length}
+						activities: {day.items.length}
 					</p>
 				</div>
 			</Card.Content>

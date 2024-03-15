@@ -1,19 +1,16 @@
 import type { Trip } from '$lib/entities/Trip.js';
 import { redirect } from '@sveltejs/kit';
 
-export async function load({ params, locals }) {
+export async function load({ params, fetch }) {
 	try {
-		const trip = await locals.pb.collection<Trip>('trips').getOne(params.id);
+		const response = await fetch(`/api/trips/${params.id}`);
+
+		if (!response.ok) {
+			throw new Error('Failed to fetch trip');
+		}
 
 		return {
-			trip: {
-				id: trip.id,
-				start: trip.start,
-				end: trip.end,
-				name: trip.name,
-				user: trip.user,
-				days: []
-			}
+			trip: (await response.json()) as Trip
 		} as { trip: Trip };
 	} catch (error) {
 		console.error(error);

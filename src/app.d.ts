@@ -7,7 +7,7 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			pb: PocketBase;
-			id: string;
+			id?: string;
 		}
 		// interface PageData {}
 		// interface PageState {}

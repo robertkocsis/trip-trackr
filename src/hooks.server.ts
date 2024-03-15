@@ -9,7 +9,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return response;
 	};
 
-	event.locals.id = '';
+	event.locals.id = undefined;
 	event.locals.pb = new PocketBase('http://127.0.0.1:8090');
 
 	const isAuth: boolean = event.url.pathname === '/login' || event.url.pathname === '/signup';
