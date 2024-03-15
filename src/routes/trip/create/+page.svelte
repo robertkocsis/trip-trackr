@@ -4,7 +4,7 @@
 </script>
 
 <div class="min-w-screen flex min-h-screen flex-col items-center">
-	<div class="w-[500px]">
+	<div class="mt-8 w-[500px]">
 		<Card.Root>
 			<Card.Header>
 				<Card.Title>Start your trip now!</Card.Title>

@@ -52,7 +52,7 @@
 						on:click={() => deleteTrip(trip.id)}>
 						Delete Trip
 					</Button>
-					<Button variant="ghost" size="sm" href="/trip/${trip.id}">View Trip</Button>
+					<Button variant="ghost" size="sm" href="trip/{trip.id}">View Trip</Button>
 				</Card.Footer>
 			</Card.Root>
 		{/each}
