@@ -3,7 +3,7 @@ import { redirect } from '@sveltejs/kit';
 
 export async function load({ params, fetch }) {
 	try {
-		const response = await fetch(`/api/trips/${params.id}`);
+		const response = await fetch(`/api/trips/${params.tripId}`);
 
 		if (!response.ok) {
 			throw new Error('Failed to fetch trip');

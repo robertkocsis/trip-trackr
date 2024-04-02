@@ -1,5 +1,4 @@
 <script lang="ts">
-	import CalendarView from '$components/custom/calendar-view/CalendarView.svelte';
 	import TripHeader from '$components/custom/trip-header/TripHeader.svelte';
 	import type { PageData } from './$types';
 
@@ -9,6 +8,6 @@
 {#if data.trip}
 	<div class="space-y-6">
 		<TripHeader trip={data.trip}></TripHeader>
-		<CalendarView trip={data.trip}></CalendarView>
+		<slot />
 	</div>
 {/if}

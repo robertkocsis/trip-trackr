@@ -11,9 +11,9 @@
 
 	const calculateDayCost = () => {
 		let cost = 0;
-		day.activities.forEach((activity) => {
-			if (activity.cost) {
-				cost += activity.cost.amount;
+		day.items.forEach((item) => {
+			if (item.cost) {
+				cost += item.cost;
 			}
 		});
 		return cost;
@@ -32,24 +32,24 @@
 			</p>
 		</div>
 
-		{#each day.activities as activity, index}
+		{#each day.items as item, index}
 			{#if activityLimit === undefined || index < activityLimit}
 				<Card.Root
 					class="m-w-96 w-96 cursor-pointer"
-					on:click={() => dispatch('activitySelected', { activity })}>
+					on:click={() => dispatch('activitySelected', { activity: item })}>
 					<Card.Header class="pb-3">
 						<Card.Title class="flex">
-							{activity.name}
-							{#if activity.cost}
+							{item.name}
+							{#if item.cost}
 								<p class="ml-1 text-xs text-muted-foreground">
-									{activity.cost.amount}{activity.cost.currency}
+									{item.cost}$
 								</p>
 							{/if}
 						</Card.Title>
 					</Card.Header>
 					<Card.Content>
 						<div class="grid space-y-1">
-							<p class="line-clamp-3 text-xs text-muted-foreground">{activity.description}</p>
+							<p class="line-clamp-3 text-xs text-muted-foreground">{item.description}</p>
 						</div>
 					</Card.Content>
 				</Card.Root>
@@ -69,7 +69,7 @@
 		<Card.Content>
 			<div class="grid space-y-1">
 				<p class="line-clamp-3 text-xs text-muted-foreground">
-					activities: {day.activities.length}
+					activities: {day.items.length}
 				</p>
 			</div>
 		</Card.Content>

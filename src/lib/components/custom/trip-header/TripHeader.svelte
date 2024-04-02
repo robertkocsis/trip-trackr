@@ -2,6 +2,7 @@
 	import type { Trip } from '$lib/entities/Trip';
 	import { DateFormatter } from '@internationalized/date';
 	import { ArrowLeft } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 
 	export let trip: Trip;
 
@@ -10,6 +11,10 @@
 	});
 
 	export let showBackButton = false;
+
+	onMount(() => {
+		console.log('trip', trip);
+	});
 </script>
 
 <div>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as Card from '$components/ui/card';
 	import type { TripDay } from '$lib/entities/TripDay';
+	export let tripId: string | undefined = undefined;
 	export let day: TripDay | undefined = undefined;
 	export let date: Date;
 
@@ -20,8 +21,8 @@
 	];
 </script>
 
-{#if day}
-	<a href={`/day/${day.id}`}>
+{#if day && tripId}
+	<a href={`/trip/${tripId}/day/${day.id}`}>
 		<Card.Root class="rounded-none border-none">
 			<Card.Header>
 				<Card.Title class="flex">

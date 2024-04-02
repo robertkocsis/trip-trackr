@@ -35,7 +35,7 @@
 		<CalendarDay {date}></CalendarDay>
 	{/each}
 	{#each days.tripDays as date}
-		<CalendarDay {date} day={getTripDay(trip, date)}></CalendarDay>
+		<CalendarDay {date} day={getTripDay(trip, date)} tripId={trip.id}></CalendarDay>
 	{/each}
 	{#each days.daysAfter as date}
 		<CalendarDay {date}></CalendarDay>
