@@ -7,7 +7,7 @@ export async function POST({ locals, params }) {
 	}
 
 	try {
-		const day = (await locals.pb.collection('tripDays').getOne(params.id)) as TripDay;
+		const day = (await locals.pb.collection('tripDays').getOne(params.dayId)) as TripDay;
 
 		const dayItem = await locals.pb
 			.collection('dayItems')
@@ -20,8 +20,6 @@ export async function POST({ locals, params }) {
 		console.error(error);
 		return handleClientResponseError(error);
 	}
-
-	return new Response(null, { status: 200 });
 }
 
 function handleClientResponseError(error: unknown) {

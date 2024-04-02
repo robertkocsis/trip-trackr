@@ -1,13 +1,14 @@
 <script lang="ts">
-	import ActivityCard from '$components/custom/activity/ActivityCard.svelte';
-	import ActivityForm from '$components/custom/activity/form/ActivityForm.svelte';
+	import { invalidateAll } from '$app/navigation';
 	import DayCard from '$components/custom/day/DayCard.svelte';
 	import Button from '$components/ui/button/button.svelte';
-	import type { Activity } from 'lucide-svelte';
+	import type { DayItem } from '$lib/entities/DayItem';
 	import type { PageData } from './$types';
+	import DayItemCard from './(components)/DayItemCard.svelte';
+	import DayItemForm from './(components)/form/DayItemForm.svelte';
 
 	export let data: PageData;
-	export let selectedActivity: Activity | undefined = undefined;
+	export let selectedActivity: DayItem | undefined = undefined;
 
 	const createItem = async () => {
 		const response = await fetch(`/api/day/${data.day.id}/items`, {
@@ -15,6 +16,8 @@
 		});
 		const item = await response.json();
 		data.day.items = [...data.day.items, item];
+
+		selectedActivity = item;
 	};
 
 	let editMode = false;
@@ -42,10 +45,16 @@
 	<div>
 		{#if selectedActivity}
 			{#if editMode}
-				<ActivityForm data={data.form} on:editSuccessful={() => (editMode = false)}></ActivityForm>
+				<DayItemForm
+					data={selectedActivity}
+					on:editOver={async () => {
+						editMode = false;
+						await invalidateAll();
+						selectedActivity = data.day.items.find((item) => item.id === selectedActivity.id);
+					}}></DayItemForm>
 			{:else}
-				<ActivityCard activity={selectedActivity} on:editClicked={() => (editMode = true)}
-				></ActivityCard>
+				<DayItemCard activity={selectedActivity} on:editClicked={() => (editMode = true)}
+				></DayItemCard>
 			{/if}
 		{/if}
 		{#if !selectedActivity}

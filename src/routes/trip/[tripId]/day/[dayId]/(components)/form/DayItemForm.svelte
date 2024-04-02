@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Button } from '$components/ui/button';
 	import Textarea from '$components/ui/textarea/textarea.svelte';
 	import * as Form from '$lib/components/ui/form';
 	import { Input } from '$lib/components/ui/input';
@@ -15,7 +16,7 @@
 		validators: zodClient(activityFormSchema),
 		onUpdated({ form }) {
 			if (form.valid) {
-				dispatch('editSuccessful');
+				dispatch('editOver');
 			}
 		}
 	});
@@ -24,6 +25,13 @@
 </script>
 
 <form method="POST" use:enhance>
+	<Form.Field {form} name="id">
+		<Form.Control let:attrs>
+			<Form.Label>id</Form.Label>
+			<Input {...attrs} bind:value={$formData.id} />
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
 	<Form.Field {form} name="name">
 		<Form.Control let:attrs>
 			<Form.Label>Name</Form.Label>
@@ -45,5 +53,8 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Button>Submit</Form.Button>
+	<div class="mt-4 flex justify-end space-x-2">
+		<Button variant="secondary" on:click={() => dispatch('editOver')}>Cancel</Button>
+		<Form.Button>Submit</Form.Button>
+	</div>
 </form>

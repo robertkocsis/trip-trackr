@@ -1,7 +1,7 @@
-import { activityFormSchema } from '$components/custom/activity/form/schema';
-import { fail, type Actions, redirect } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
+import { activityFormSchema } from './(components)/form/schema';
 
 export const actions: Actions = {
 	default: async (event) => {
@@ -11,6 +11,15 @@ export const actions: Actions = {
 				form
 			});
 		}
+
+		const { params } = event;
+
+		console.log('params', form.data);
+		await event.fetch(`/api/day/${params.dayId}/items/${form.data.id}`, {
+			method: 'POST',
+			body: JSON.stringify(form.data)
+		});
+
 		return {
 			form
 		};
@@ -21,10 +30,6 @@ export async function load({ params, parent }) {
 	const { trip } = await parent();
 
 	const day = trip.days.find((day) => day.id === params.dayId);
-
-	console.log('day', day);
-	console.log('trip', trip);
-	console.log('params', params);
 
 	if (!day) {
 		redirect(302, `/trip/${trip.id}`);

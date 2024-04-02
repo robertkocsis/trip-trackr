@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { Activity } from '$lib/entities/DayItem';
-	import { Pencil } from 'lucide-svelte';
+	import { Activity, Pencil } from 'lucide-svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	let dispatcher = createEventDispatcher();
@@ -16,17 +15,13 @@
 		</button>
 	</div>
 	<div>
-		<p class="text-md font-bold">Description:</p>
-		<p class="text-sm">{activity.description}</p>
-	</div>
-
-	<div>
-		<p class="text-md font-bold">Place:</p>
-		<p class="text-sm">TODO add something like maps integration etc</p>
-	</div>
-
-	<div>
 		<p class="text-md font-bold">Cost:</p>
-		<p class="text-sm">{activity.cost?.amount} {activity.cost?.currency}</p>
+		<p class="text-sm">{activity.cost?.amount ?? 0} $</p>
 	</div>
+	{#if activity.description}
+		<div>
+			<p class="text-md font-bold">Description:</p>
+			<p class="text-sm">{activity.description}</p>
+		</div>
+	{/if}
 </div>

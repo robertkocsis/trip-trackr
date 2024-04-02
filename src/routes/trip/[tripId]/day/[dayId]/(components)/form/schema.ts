@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const activityFormSchema = z.object({
+	id: z.string(),
 	name: z.string().min(2).max(50),
 	description: z.string().max(1000).default(''),
 	cost: z.coerce.number().positive().max(1000000)
