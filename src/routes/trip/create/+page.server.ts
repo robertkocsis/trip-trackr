@@ -51,6 +51,7 @@ export const actions: Actions = {
 
 			await Promise.all(promises);
 		} catch (error) {
+			console.log(error);
 			return message(form, 'An unexpected error occurred during the trip creation', {
 				status: 500
 			});

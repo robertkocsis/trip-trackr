@@ -14,7 +14,6 @@ export const actions: Actions = {
 
 		const { params } = event;
 
-		console.log('params', form.data);
 		await event.fetch(`/api/day/${params.dayId}/items/${form.data.id}`, {
 			method: 'POST',
 			body: JSON.stringify(form.data)

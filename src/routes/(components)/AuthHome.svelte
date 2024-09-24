@@ -33,27 +33,29 @@
 			</div>
 		</div>
 
-		{#each data.trips as trip}
-			<Card.Root class="w-[300px]">
-				<Card.Header>
-					<Card.Title>{trip.name}</Card.Title>
-					<Card.Description>
-						{df.format(new Date(trip.start))} - {df.format(new Date(trip.end))}
-					</Card.Description>
-				</Card.Header>
-				<Card.Content>You have 0 items for this trip</Card.Content>
-				<Card.Footer class="flex justify-between">
-					<Button
-						variant="ghost"
-						class="hover:bg-destructive/40 hover:text-destructive-foreground"
-						size="sm"
-						on:click={() => deleteTrip(trip.id)}>
-						Delete Trip
-					</Button>
-					<Button variant="ghost" size="sm" href="trip/{trip.id}">View Trip</Button>
-				</Card.Footer>
-			</Card.Root>
-		{/each}
+		<div class="flex gap-2">
+			{#each data.trips as trip}
+				<Card.Root class="w-[300px]">
+					<Card.Header>
+						<Card.Title>{trip.name}</Card.Title>
+						<Card.Description>
+							{df.format(new Date(trip.start))} - {df.format(new Date(trip.end))}
+						</Card.Description>
+					</Card.Header>
+					<Card.Content>You have 0 items for this trip</Card.Content>
+					<Card.Footer class="flex justify-between">
+						<Button
+							variant="ghost"
+							class="hover:bg-destructive/40 hover:text-destructive-foreground"
+							size="sm"
+							on:click={() => deleteTrip(trip.id)}>
+							Delete Trip
+						</Button>
+						<Button variant="ghost" size="sm" href="trip/{trip.id}">View Trip</Button>
+					</Card.Footer>
+				</Card.Root>
+			{/each}
+		</div>
 	{:else}
 		<div class="min-w-screen flex min-h-screen flex-col">
 			<h1 class="text-3xl font-bold">Welcome back!</h1>
