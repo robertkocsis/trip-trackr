@@ -1,10 +1,12 @@
 import type { TripDay } from '$lib/entities/TripDay';
 import { ClientResponseError } from 'pocketbase';
 
-export async function POST({ locals, params }) {
+export async function POST({ locals, params, request }) {
 	if (!locals.id) {
 		return new Response(null, { status: 403 });
 	}
+
+	const data = await request.json();
 
 	try {
 		const day = (await locals.pb.collection('tripDays').getOne(params.dayId)) as TripDay;

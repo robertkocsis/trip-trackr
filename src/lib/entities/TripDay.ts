@@ -1,10 +1,10 @@
-import type { DayItem } from '$lib/entities/DayItem';
+import type { TripDayItem } from '$lib/entities/TripDayItem';
 
 interface TripDay {
 	id: string;
 	date: string;
 	name: string;
-	items: DayItem[];
+	items: TripDayItem[];
 }
 
 export type { TripDay };

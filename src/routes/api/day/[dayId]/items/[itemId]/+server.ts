@@ -1,4 +1,4 @@
-import type { DayItem } from '$lib/entities/DayItem.js';
+import type { TripDayItem } from '$lib/entities/TripDayItem.js';
 import { ClientResponseError } from 'pocketbase';
 
 export async function POST({ locals, params, request }) {
@@ -11,7 +11,7 @@ export async function POST({ locals, params, request }) {
 	console.log('params', params, body, locals);
 
 	try {
-		const dayItem = (await locals.pb.collection('dayItems').getOne(params.itemId)) as DayItem;
+		const dayItem = (await locals.pb.collection('dayItems').getOne(params.itemId)) as TripDayItem;
 
 		await locals.pb.collection('dayItems').update(dayItem.id, { name: body.name });
 

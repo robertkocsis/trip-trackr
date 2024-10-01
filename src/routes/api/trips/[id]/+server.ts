@@ -36,7 +36,17 @@ export async function GET({ locals, params }) {
 					.collection('dayItems')
 					.getFullList({ filter: `tripDay = '${day.id}'` });
 
-				return { ...day, items: items.map((item) => ({ id: item.id, name: item.name })) };
+				return {
+					...day,
+					items: items.map((item) => ({
+						id: item.id,
+						name: item.name,
+						startDate: item.startDate,
+						endDate: item.endDate,
+						cost: item.cost,
+						description: item.description
+					}))
+				};
 			})
 		);
 
