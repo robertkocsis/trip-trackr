@@ -3,12 +3,27 @@
 	import type { TripDay } from '$lib/entities/TripDay';
 	import type { TripDayItem } from '$lib/entities/TripDayItem';
 	import { formatTripDayItemTime } from '$lib/utils/tripDayItem.util';
-	import { zod } from 'sveltekit-superforms/adapters';
+	import { type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import { superValidate } from 'sveltekit-superforms/client';
 	import TripDayItemForm from '../form/DayItemForm.svelte';
-	import { dayItemFormSchema } from '../form/schema';
-
+	import { dayItemFormSchema, type TripDayItemFormSchema } from '../form/schema';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import { zod } from 'sveltekit-superforms/adapters';
 	export let day: TripDay;
+
+	let dialogOpen = false;
+	let form: SuperValidated<Infer<TripDayItemFormSchema>> | null = null;
+
+	const openDialog = async (item: TripDayItem) => {
+		form = await superValidate(formatTripDayItemTime(item), zod(dayItemFormSchema));
+		dialogOpen = true;
+	};
+
+	$: {
+		if (!dialogOpen) {
+			form = null;
+		}
+	}
 
 	$: itemsWithoutDate = day.items.filter((item: TripDayItem) => !item.start && !item.end);
 </script>
@@ -23,34 +38,39 @@
 	</div>
 
 	<div class="flex flex-col gap-4 overflow-y-auto pr-4">
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		{#each itemsWithoutDate as item}
-			<DialogWrapper>
-				<svelte:fragment slot="trigger">
-					<div class="cursor-pointer rounded-lg bg-primary p-2 text-white">
-						<div class="h-[60px]">
-							<div class="flex space-x-1">
-								<h2
-									class="text-md scroll-m-20 font-semibold tracking-tight transition-colors first:mt-0">
-									{item.name}
-								</h2>
-								<span class="text-sm text-muted-foreground">{item.cost ?? 0}$</span>
-							</div>
-
-							<p class="text-sm text-muted-foreground">
-								{item.description ?? ''}
-							</p>
-						</div>
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<!-- svelte-ignore a11y-no-static-element-interactions -->
+			<div
+				class="cursor-pointer rounded-lg bg-primary p-2 text-white"
+				on:click={() => openDialog(item)}>
+				<div class="h-[60px]">
+					<div class="flex space-x-1">
+						<h2
+							class="text-md scroll-m-20 font-semibold tracking-tight transition-colors first:mt-0">
+							{item.name}
+						</h2>
+						<span class="text-sm text-muted-foreground">{item.cost ?? 0}$</span>
 					</div>
-				</svelte:fragment>
-				<svelte:fragment slot="content">
-					{#await superValidate(formatTripDayItemTime(item), zod(dayItemFormSchema)) then form}
-						<TripDayItemForm data={form} />
-					{/await}
-				</svelte:fragment>
-			</DialogWrapper>
+
+					<p class="text-sm text-muted-foreground">
+						{item.description ?? ''}
+					</p>
+				</div>
+			</div>
 		{/each}
 		{#if itemsWithoutDate.length === 0}
 			<p class="text-sm text-muted-foreground">You don't have any open-ended activities yet</p>
 		{/if}
 	</div>
 </div>
+
+<Dialog.Root bind:open={dialogOpen}>
+	<Dialog.Trigger></Dialog.Trigger>
+	<Dialog.Content>
+		{#if form}
+			<TripDayItemForm data={form} />
+		{/if}
+	</Dialog.Content>
+</Dialog.Root>
