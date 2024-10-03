@@ -28,7 +28,7 @@ export const dayItemFormSchema = z.object({
 		.regex(/^[0-5][0-9]$/)
 		.optional(),
 	description: z.string().max(1000).default('').optional(),
-	cost: z.coerce.number().positive().max(10000).default(0)
+	cost: z.coerce.number().min(0).max(10000).optional()
 });
 
 export type TripDayItemFormSchema = typeof dayItemFormSchema;

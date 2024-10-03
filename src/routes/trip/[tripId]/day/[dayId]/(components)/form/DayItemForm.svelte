@@ -63,14 +63,14 @@
 								<Form.Control let:attrs>
 									<Input {...attrs} bind:value={$formData.startHours} />
 								</Form.Control>
-								<Form.FieldErrors />
+								<Form.FieldErrors class="max-w-[40px]" />
 							</Form.Field>
 
 							<Form.Field {form} name="startMinutes">
 								<Form.Control let:attrs>
 									<Input {...attrs} bind:value={$formData.startMinutes} />
 								</Form.Control>
-								<Form.FieldErrors />
+								<Form.FieldErrors class="max-w-[40px]" />
 							</Form.Field>
 						</div>
 					</div>
@@ -86,13 +86,13 @@
 								<Form.Control let:attrs>
 									<Input {...attrs} bind:value={$formData.endHours} />
 								</Form.Control>
-								<Form.FieldErrors />
+								<Form.FieldErrors class="max-w-[40px]" />
 							</Form.Field>
 							<Form.Field {form} name="endMinutes">
 								<Form.Control let:attrs>
 									<Input {...attrs} bind:value={$formData.endMinutes} />
 								</Form.Control>
-								<Form.FieldErrors />
+								<Form.FieldErrors class="max-w-[40px]" />
 							</Form.Field>
 						</div>
 					</div>

@@ -42,14 +42,18 @@ export const actions: Actions = {
 				i++;
 			}
 
-			const promises = days.map((day) =>
-				event.locals.pb.collection('tripDays').create({
-					...day,
-					trip: tripId
-				})
-			);
+			for (const day of days) {
+				try {
+					await event.locals.pb.collection('tripDays').create({
+						...day,
+						trip: tripId
+					});
 
-			await Promise.all(promises);
+					console.log(`Day created: ${day.date}`);
+				} catch (error) {
+					console.log(error);
+				}
+			}
 		} catch (error) {
 			console.log(error);
 			return message(form, 'An unexpected error occurred during the trip creation', {

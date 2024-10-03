@@ -1,5 +1,6 @@
 import type { Trip } from '$lib/entities/Trip.js';
 import type { TripDay } from '$lib/entities/TripDay';
+import type { TripDayItem } from '$lib/entities/TripDayItem.js';
 import { redirect } from '@sveltejs/kit';
 
 export async function load({ params, locals }) {
@@ -10,33 +11,35 @@ export async function load({ params, locals }) {
 			.collection<TripDay>('tripDays')
 			.getFullList({ filter: `trip = '${params.tripId}'` });
 
-		const daysWithItems: TripDay[] = await Promise.all(
-			days.map(async (day) => {
-				const items = await locals.pb
+		for (const day of days) {
+			try {
+				const items: TripDayItem[] = await locals.pb
 					.collection('dayItems')
 					.getFullList({ filter: `tripDay = '${day.id}'` });
 
-				return {
-					...day,
-					items: items.map((item) => ({
-						id: item.id,
-						name: item.name,
-						start: item.start,
-						end: item.end,
-						cost: item.cost,
-						description: item.description
-					}))
-				};
-			})
-		);
+				const mappedItems = items.map((item) => ({
+					id: item.id,
+					name: item.name,
+					start: item.start,
+					end: item.end,
+					cost: item.cost,
+					description: item.description
+				}));
 
-		const response = buildResponse(trip, daysWithItems);
+				day.items = mappedItems ?? [];
+			} catch (error) {
+				day.items = [];
+				console.log('item fetching failed', error);
+			}
+		}
+
+		const response = buildResponse(trip, days);
 
 		return {
 			trip: response as Trip
 		} as { trip: Trip };
 	} catch (error) {
-		console.error(error);
+		console.error('trip fetching failed', error);
 
 		return redirect(303, '/');
 	}

@@ -11,7 +11,7 @@
 
 	export let day: TripDay;
 
-	const minuteLengthInPx = 0.86;
+	const minuteLengthInPx = 0.864;
 
 	const hours = Array(24);
 	let form: SuperValidated<Infer<TripDayItemFormSchema>> | null = null;
@@ -53,6 +53,17 @@
 
 		return startDateInMinutes * minuteLengthInPx + 10;
 	};
+
+	const getItemLengthInMinutes = (item: TripDayItem) => {
+		if (!item.start || !item.end) {
+			return 0;
+		}
+
+		const start = new Date(item.start);
+		const end = new Date(item.end);
+
+		return (end.getTime() - start.getTime()) / 60000;
+	};
 </script>
 
 <div class=" flex flex-1 flex-col gap-4">
@@ -73,24 +84,40 @@
 			{#each itemsWithDate as item}
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<!-- svelte-ignore a11y-no-static-element-interactions -->
-				<div
-					on:click={() => openDialog(item)}
-					class="absolute left-[50px] z-10 w-[70%] rounded-lg bg-primary p-2 text-white"
-					style="height: {getItemHeight(item)}px; top: {getItemTopPosition(item)}px">
-					<div>
+
+				{#if getItemLengthInMinutes(item) < 75}
+					<div
+						on:click={() => openDialog(item)}
+						class="absolute left-[50px] z-10 flex w-[70%] cursor-pointer items-center rounded-lg border-t-2 border-solid border-white bg-primary p-2 text-white"
+						style="height: {getItemHeight(item)}px; top: {getItemTopPosition(item)}px">
 						<div class="flex space-x-1">
-							<h2
-								class="text-md scroll-m-20 font-semibold tracking-tight transition-colors first:mt-0">
+							<h2 class="text-sm font-medium text-primary-foreground">
 								{item.name}
 							</h2>
-							<span class="text-sm text-background">{item.cost}$</span>
+							<span class="text-xs text-neutral-200">{item.cost}$</span>
 						</div>
-
-						{#if item.description}
-							<p class="mt-2 flex items-center text-sm text-background">{item.description}</p>
-						{/if}
 					</div>
-				</div>
+				{:else}
+					<div
+						on:click={() => openDialog(item)}
+						class="absolute left-[50px] z-10 w-[70%] cursor-pointer rounded-lg border-t-2 border-solid border-white bg-primary p-2 text-white"
+						style="height: {getItemHeight(item)}px; top: {getItemTopPosition(item)}px">
+						<div class="flex flex-col gap-2">
+							<div class="flex space-x-1">
+								<h2 class=" text-sm font-medium text-primary-foreground">
+									{item.name}
+								</h2>
+								<span class="text-sm text-neutral-200">{item.cost}$</span>
+							</div>
+
+							{#if item.description}
+								<p class="flex items-center whitespace-pre-line text-xs text-neutral-200">
+									{item.description}
+								</p>
+							{/if}
+						</div>
+					</div>
+				{/if}
 			{/each}
 		</div>
 	</div>

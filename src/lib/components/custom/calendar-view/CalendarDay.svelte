@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as Card from '$components/ui/card';
 	import type { TripDay } from '$lib/entities/TripDay';
+	import type { TripDayItem } from '$lib/entities/TripDayItem';
 	export let tripId: string | undefined = undefined;
 	export let day: TripDay | undefined = undefined;
 	export let date: Date;
@@ -19,6 +20,8 @@
 		'November',
 		'December'
 	];
+
+	$: dayCost = day?.items.reduce((acc: number, item: TripDayItem) => acc + (item.cost ?? 0), 0);
 </script>
 
 {#if day && tripId}
@@ -29,13 +32,15 @@
 					<p>
 						{day.name}
 					</p>
-					<p class="ml-1 text-xs text-muted-foreground">3$</p>
+					<p class="ml-1 text-xs text-muted-foreground">
+						{dayCost}$
+					</p>
 				</Card.Title>
 			</Card.Header>
 			<Card.Content>
 				<div class="grid space-y-1">
 					<p class="line-clamp-3 text-xs text-muted-foreground">
-						activities: {day.items.length}
+						activities: {day.items.length ?? 0}
 					</p>
 				</div>
 			</Card.Content>

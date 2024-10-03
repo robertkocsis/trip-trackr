@@ -30,10 +30,10 @@
 
 <div class="ml-auto flex h-full max-h-[500px] max-w-96 flex-col gap-4">
 	<div class="pr-4">
-		<h3 class="tendfont-semibold">Open-ended activities</h3>
+		<h3 class="tendfont-semibold">Open-ended items</h3>
 		<h4 class="text-xs text-muted-foreground">
-			These are activities that are not time specific, but you still want to keep track of them.
-			These can also include general expenses, that you want to track. (eg. a taxi ride)
+			These are items that are not time specific, but you still want to keep track of them. These
+			can also include general expenses, that you want to track. (eg. a taxi ride)
 		</h4>
 	</div>
 
@@ -47,14 +47,13 @@
 				on:click={() => openDialog(item)}>
 				<div class="h-[60px]">
 					<div class="flex space-x-1">
-						<h2
-							class="text-md scroll-m-20 font-semibold tracking-tight transition-colors first:mt-0">
+						<h2 class="text-sm font-medium text-primary-foreground">
 							{item.name}
 						</h2>
-						<span class="text-sm text-muted-foreground">{item.cost ?? 0}$</span>
+						<span class="text-sm text-neutral-200">{item.cost ?? 0}$</span>
 					</div>
 
-					<p class="text-sm text-muted-foreground">
+					<p class="text-xs text-neutral-200">
 						{item.description ?? ''}
 					</p>
 				</div>

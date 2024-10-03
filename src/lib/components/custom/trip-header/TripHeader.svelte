@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Trip } from '$lib/entities/Trip';
+	import type { TripDay } from '$lib/entities/TripDay';
 	import { DateFormatter } from '@internationalized/date';
 	import { ArrowLeft } from 'lucide-svelte';
 
@@ -10,6 +11,12 @@
 	});
 
 	export let showBackButton = false;
+
+	$: tripCost = trip?.days.reduce(
+		(acc: number, day: TripDay) =>
+			acc + (day.items.reduce((acc: number, item: TripDayItem) => acc + (item.cost ?? 0), 0) ?? 0),
+		0
+	);
 </script>
 
 <div>
@@ -23,7 +30,7 @@
 				{trip.name}
 			</h1>
 		</a>
-		<span class="text-sm text-muted-foreground">0$</span>
+		<span class="text-sm text-muted-foreground">${tripCost}$</span>
 	</div>
 
 	<p class="text-sm text-muted-foreground">
