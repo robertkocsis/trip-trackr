@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CalendarView from '$components/custom/calendar-view/CalendarView.svelte';
+	import CalendarView from './(components)/calendar-view/CalendarView.svelte';
 	import TripHeader from '$components/custom/trip-header/TripHeader.svelte';
 	import type { PageData } from './$types';
 

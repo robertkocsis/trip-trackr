@@ -13,7 +13,15 @@
 </script>
 
 <div class="min-w-screen min-h-screen">
-	{#if !['/login', '/signup'].includes($page.url.pathname)}
+	{#if ['/login', '/signup'].includes($page.url.pathname)}
+		<div class="min-w-screen">
+			<slot />
+		</div>
+	{:else if $page.url.pathname === '/' && !$currentUser}
+		<div class="min-w-screen">
+			<slot />
+		</div>
+	{:else}
 		<Header></Header>
 
 		<div class="min-w-screen">
@@ -21,17 +29,5 @@
 				<slot />
 			</div>
 		</div>
-	{:else}
-		<div class="min-w-screen">
-			<slot />
-		</div>
 	{/if}
-
-	<!-- {#if $currentUser}
-		<div class="min-w-screen min-h-screen px-16 py-8">
-			<slot />
-		</div>
-	{:else}
-		<slot />
-	{/if} -->
 </div>

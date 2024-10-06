@@ -1,3 +1,5 @@
+import { DateFormatter } from '@internationalized/date';
+
 export function timeStringToDate(timeString: string): Date {
 	const [hours, minutes] = timeString.split(':').map(Number);
 	const date = new Date();
@@ -19,4 +21,12 @@ export function isoToTimeString(isoString: string): string {
 export function timeStringToIso(timeString: string): string {
 	const date = timeStringToDate(timeString);
 	return date.toISOString();
+}
+
+const df = new DateFormatter('en-US', {
+	dateStyle: 'medium'
+});
+
+export function formatDate(date: Date): string {
+	return df.format(date);
 }

@@ -23,11 +23,11 @@
 		</h2>
 	</div>
 	<div>
-		<div class="flex space-x-1">
+		<div class="flex items-end space-x-1" style="height: 48px;">
 			<h2 class="scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
 				{data.day.name}
 			</h2>
-			<span class="text-sm text-muted-foreground">{dayCost}$</span>
+			<span class="self-center text-sm text-muted-foreground">{dayCost}$</span>
 		</div>
 		<p class="text-sm text-muted-foreground">
 			{new Date(data.day.date).toDateString()}
@@ -41,7 +41,7 @@
 			</svelte:fragment>
 			<svelte:fragment slot="content">
 				{#await superValidate(zod(dayItemFormSchema)) then form}
-					<TripDayItemForm data={form} />
+					<TripDayItemForm superValidatedData={form} />
 				{/await}
 			</svelte:fragment>
 		</DialogWrapper>

@@ -10,17 +10,15 @@
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { dayItemFormSchema, type TripDayItemFormSchema } from './schema';
 
-	export let data: SuperValidated<Infer<TripDayItemFormSchema>>;
+	export let superValidatedData: SuperValidated<Infer<TripDayItemFormSchema>>;
 	let closeWrapper: HTMLDivElement;
 
-	$: console.log(data.data);
-
-	const form = superForm(data, {
+	const form = superForm(superValidatedData, {
 		validators: zodClient(dayItemFormSchema),
-
+		dataType: 'json',
 		onSubmit: ({ formData }) => {
-			if (data.data.id) {
-				formData.set('id', data.data.id);
+			if (superValidatedData.data.id) {
+				formData.set('id', superValidatedData.data.id);
 			}
 		},
 		onUpdated: (event) => {
@@ -30,11 +28,10 @@
 		}
 	});
 
-	const { form: formData, enhance: superEnhance } = form;
+	const { form: formData, enhance: superEnhance, errors } = form;
 </script>
 
 <Dialog.Header>
-	<Dialog.Title>delete</Dialog.Title>
 	<Dialog.Description>
 		<form method="POST" use:superEnhance action="?/persist">
 			<Form.Field {form} name="name">
@@ -44,59 +41,30 @@
 				</Form.Control>
 				<Form.FieldErrors />
 			</Form.Field>
-			<div class="flex w-full gap-2">
-				<Form.Field {form} name="cost" class="w-1/2">
+			<Form.Field {form} name="cost">
+				<Form.Control let:attrs>
+					<Form.Label>Cost</Form.Label>
+					<Input {...attrs} bind:value={$formData.cost} type="number" />
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
+
+			<div class="flex gap-2">
+				<Form.Field {form} name="start" class="w-1/2">
 					<Form.Control let:attrs>
-						<Form.Label>Cost</Form.Label>
-						<Input {...attrs} bind:value={$formData.cost} type="number" />
+						<Form.Label>Start</Form.Label>
+						<Input {...attrs} bind:value={$formData.start} maxlength={5} placeholder="HH:MM" />
 					</Form.Control>
 					<Form.FieldErrors />
 				</Form.Field>
-				<div class="flex w-1/2 gap-2">
-					<div class="space-y-2">
-						<div
-							class="text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 data-[fs-error]:text-destructive">
-							Start
-						</div>
-						<div class="flex gap-2">
-							<Form.Field {form} name="startHours">
-								<Form.Control let:attrs>
-									<Input {...attrs} bind:value={$formData.startHours} />
-								</Form.Control>
-								<Form.FieldErrors class="max-w-[40px]" />
-							</Form.Field>
 
-							<Form.Field {form} name="startMinutes">
-								<Form.Control let:attrs>
-									<Input {...attrs} bind:value={$formData.startMinutes} />
-								</Form.Control>
-								<Form.FieldErrors class="max-w-[40px]" />
-							</Form.Field>
-						</div>
-					</div>
-
-					<div class="space-y-2">
-						<div
-							class="text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 data-[fs-error]:text-destructive">
-							End
-						</div>
-
-						<div class="flex gap-2">
-							<Form.Field {form} name="endHours">
-								<Form.Control let:attrs>
-									<Input {...attrs} bind:value={$formData.endHours} />
-								</Form.Control>
-								<Form.FieldErrors class="max-w-[40px]" />
-							</Form.Field>
-							<Form.Field {form} name="endMinutes">
-								<Form.Control let:attrs>
-									<Input {...attrs} bind:value={$formData.endMinutes} />
-								</Form.Control>
-								<Form.FieldErrors class="max-w-[40px]" />
-							</Form.Field>
-						</div>
-					</div>
-				</div>
+				<Form.Field {form} name="end" class="w-1/2">
+					<Form.Control let:attrs>
+						<Form.Label>End</Form.Label>
+						<Input {...attrs} bind:value={$formData.end} maxlength={5} placeholder="HH:MM" />
+					</Form.Control>
+					<Form.FieldErrors />
+				</Form.Field>
 			</div>
 
 			<Form.Field {form} name="description">
@@ -108,7 +76,7 @@
 			</Form.Field>
 			<div class="mt-4 flex">
 				<div class="flex-1">
-					{#if data.data.id}
+					{#if superValidatedData.data.id}
 						<form
 							method="POST"
 							action="?/delete"
@@ -120,7 +88,7 @@
 									}
 								};
 							}}>
-							<input type="hidden" name="id" value={data.data.id} />
+							<input type="hidden" name="id" value={superValidatedData.data.id} />
 							<Button variant="destructive" type="submit">Delete</Button>
 						</form>
 					{/if}

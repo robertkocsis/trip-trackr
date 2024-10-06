@@ -1,27 +1,26 @@
 <script lang="ts">
-	import DialogWrapper from '$components/custom/dialog-wrapper/DialogWrapper.svelte';
+	import * as Dialog from '$lib/components/ui/dialog';
 	import type { TripDay } from '$lib/entities/TripDay';
 	import type { TripDayItem } from '$lib/entities/TripDayItem';
 	import { formatTripDayItemTime } from '$lib/utils/tripDayItem.util';
 	import { type Infer, type SuperValidated } from 'sveltekit-superforms';
+	import { zod } from 'sveltekit-superforms/adapters';
 	import { superValidate } from 'sveltekit-superforms/client';
 	import TripDayItemForm from '../form/DayItemForm.svelte';
 	import { dayItemFormSchema, type TripDayItemFormSchema } from '../form/schema';
-	import * as Dialog from '$lib/components/ui/dialog';
-	import { zod } from 'sveltekit-superforms/adapters';
 	export let day: TripDay;
 
 	let dialogOpen = false;
-	let form: SuperValidated<Infer<TripDayItemFormSchema>> | null = null;
+	let superValidatedData: SuperValidated<Infer<TripDayItemFormSchema>> | null = null;
 
 	const openDialog = async (item: TripDayItem) => {
-		form = await superValidate(formatTripDayItemTime(item), zod(dayItemFormSchema));
+		superValidatedData = await superValidate(formatTripDayItemTime(item), zod(dayItemFormSchema));
 		dialogOpen = true;
 	};
 
 	$: {
 		if (!dialogOpen) {
-			form = null;
+			superValidatedData = null;
 		}
 	}
 
@@ -68,8 +67,8 @@
 <Dialog.Root bind:open={dialogOpen}>
 	<Dialog.Trigger></Dialog.Trigger>
 	<Dialog.Content>
-		{#if form}
-			<TripDayItemForm data={form} />
+		{#if superValidatedData}
+			<TripDayItemForm {superValidatedData} />
 		{/if}
 	</Dialog.Content>
 </Dialog.Root>

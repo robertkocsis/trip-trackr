@@ -2,21 +2,69 @@
 	import Button from '$components/ui/button/button.svelte';
 
 	import { goto } from '$app/navigation';
-	import { fade } from 'svelte/transition';
+	import SplitWrapper from '$components/custom/split-wrapper/SplitWrapper.svelte';
+	import type { Trip } from '$lib/entities/Trip';
+	import { formatDate } from '$lib/utils/date.util';
+
+	const mockTrips: Trip[] = [
+		{
+			id: '1',
+			days: [],
+			user: 'asdasd',
+			name: 'Trip to Italy',
+			start: '2021-01-01',
+			end: '2021-01-02'
+		},
+		{
+			id: '2',
+			days: [],
+			user: 'asdasd',
+			name: 'Trip to Montenegro',
+			start: '2021-01-01',
+			end: '2021-01-02'
+		},
+		{
+			id: '3',
+			days: [],
+			user: 'asdasd',
+			name: 'Trip to France',
+			start: '2021-01-01',
+			end: '2021-01-02'
+		},
+		{
+			id: '4',
+			days: [],
+			user: 'asdasd',
+			name: 'Trip to Germany',
+			start: '2021-01-01',
+			end: '2021-01-02'
+		}
+	];
 </script>
 
-<div class="min-w-screen flex min-h-screen flex-col" in:fade>
-	<div class="mx-36 mt-8 flex flex-1 flex-col items-center">
-		<h1 class="mb-4 text-9xl font-bold text-foreground">Trip Trackr</h1>
-		<p class="mb-4 text-xl text-foreground">Your Ultimate Travel Companion</p>
+<SplitWrapper showSignUp>
+	<div class="mx-auto flex h-full w-full flex-col justify-center space-y-10 bg-background">
+		<div class="mx-auto flex flex-col items-center justify-center gap-6">
+			<h3
+				class="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight text-foreground transition-colors">
+				Check out what other people are planning
+			</h3>
+			<div class="flex flex-col items-center justify-center gap-4 sm:w-[550px]">
+				{#each mockTrips as trip}
+					<div class="flex w-[450px] cursor-pointer flex-col rounded-lg bg-foreground px-4 py-6">
+						<div class="flex space-x-1">
+							<h2 class="text-xl font-medium text-primary-foreground">
+								{trip.name}
+							</h2>
+							<span class="text-sm text-muted">10$</span>
+						</div>
 
-		<p class="mt-16 max-w-[800px] text-lg text-foreground">
-			Embark on your next adventure with confidence, powered by Trip Trackr. Whether you're
-			exploring bustling cities, serene countryside, or exotic locales, our intuitive trip tracker
-			is here to streamline your journey from start to finish.
-		</p>
-		<div class="mb-4 mt-8">
-			<Button on:click={() => goto('/signup')} size="lg">Sign Up Now</Button>
+						<p class="flex items-center whitespace-pre-line text-sm text-muted">
+							{formatDate(new Date(trip.start))} - {formatDate(new Date(trip.end))} (5 days)
+						</p>
+					</div>
+				{/each}
+			</div>
 		</div>
 	</div>
-</div>
+</SplitWrapper>

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import CalendarDay from '$components/custom/calendar-view/CalendarDay.svelte';
-	import { getDaysForCalendar } from '$components/custom/calendar-view/getDaysForCalendar';
+	import CalendarDay from './CalendarDay.svelte';
+	import { getDaysForCalendar } from './getDaysForCalendar';
 	import type { Trip } from '$lib/entities/Trip';
 	import type { TripDay } from '$lib/entities/TripDay';
 

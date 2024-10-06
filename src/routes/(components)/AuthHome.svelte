@@ -28,7 +28,7 @@
 				<h1 class="text-3xl font-bold">Your existing trips</h1>
 			</div>
 			<div class="flex flex-1 items-center justify-end">
-				<p class="text-md text-muted-foreground">Are you ready for a new adventure?</p>
+				<p class="text-md text-muted-foreground">Ready to plan your next trip?</p>
 				<Button href="trip/create" variant="link">Create a trip now!</Button>
 			</div>
 		</div>
@@ -44,14 +44,10 @@
 					</Card.Header>
 					<Card.Content>You have 0 items for this trip</Card.Content>
 					<Card.Footer class="flex justify-between">
-						<Button
-							variant="ghost"
-							class="hover:bg-destructive/40 hover:text-destructive-foreground"
-							size="sm"
-							on:click={() => deleteTrip(trip.id)}>
+						<Button variant="destructive" size="sm" on:click={() => deleteTrip(trip.id)}>
 							Delete Trip
 						</Button>
-						<Button variant="ghost" size="sm" href="trip/{trip.id}">View Trip</Button>
+						<Button variant="default" size="sm" href="trip/{trip.id}">View Trip</Button>
 					</Card.Footer>
 				</Card.Root>
 			{/each}

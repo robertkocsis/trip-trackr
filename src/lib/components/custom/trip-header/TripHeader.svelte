@@ -1,14 +1,11 @@
 <script lang="ts">
 	import type { Trip } from '$lib/entities/Trip';
 	import type { TripDay } from '$lib/entities/TripDay';
-	import { DateFormatter } from '@internationalized/date';
+	import type { TripDayItem } from '$lib/entities/TripDayItem';
+	import { formatDate } from '$lib/utils/date.util';
 	import { ArrowLeft } from 'lucide-svelte';
 
 	export let trip: Trip;
-
-	const df = new DateFormatter('en-US', {
-		dateStyle: 'medium'
-	});
 
 	export let showBackButton = false;
 
@@ -20,7 +17,7 @@
 </script>
 
 <div>
-	<div class="flex space-x-1">
+	<div class="flex">
 		<a href={`/trip/${trip.id}`} class="flex items-center space-x-1">
 			{#if showBackButton}
 				<ArrowLeft />
@@ -30,10 +27,10 @@
 				{trip.name}
 			</h1>
 		</a>
-		<span class="text-sm text-muted-foreground">${tripCost}$</span>
+		<span class="text-sm text-muted-foreground">{tripCost}$</span>
 	</div>
 
 	<p class="text-sm text-muted-foreground">
-		{df.format(new Date(trip.start))} - {df.format(new Date(trip.end))}
+		{formatDate(new Date(trip.start))} - {formatDate(new Date(trip.end))}
 	</p>
 </div>

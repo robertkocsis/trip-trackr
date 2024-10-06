@@ -14,29 +14,36 @@
 	const minuteLengthInPx = 0.864;
 
 	const hours = Array(24);
-	let form: SuperValidated<Infer<TripDayItemFormSchema>> | null = null;
+	let superValidatedData: SuperValidated<Infer<TripDayItemFormSchema>> | null = null;
 	let dialogOpen = false;
 
 	const openDialog = async (item: TripDayItem) => {
-		form = await superValidate(formatTripDayItemTime(item), zod(dayItemFormSchema));
+		superValidatedData = await superValidate(formatTripDayItemTime(item), zod(dayItemFormSchema));
 		dialogOpen = true;
 	};
 
 	$: {
 		if (!dialogOpen) {
-			form = null;
+			superValidatedData = null;
 		}
 	}
 
 	$: itemsWithDate = day.items.filter((item: TripDayItem) => item.start && item.end);
+
+	const transformTimeToDate = (time: string) => {
+		const [hours, minutes] = time.split(':').map(Number);
+		const date = new Date();
+		date.setHours(hours, minutes, 0, 0);
+		return date;
+	};
 
 	const getItemHeight = (item: TripDayItem) => {
 		if (!item.start || !item.end) {
 			return 0;
 		}
 
-		const start = new Date(item.start);
-		const end = new Date(item.end);
+		const start = transformTimeToDate(item.start);
+		const end = transformTimeToDate(item.end);
 
 		const itemLengthInMinutes = (end.getTime() - start.getTime()) / 60000;
 
@@ -48,7 +55,7 @@
 			return 0;
 		}
 
-		const startDate = new Date(item.start);
+		const startDate = transformTimeToDate(item.start);
 		const startDateInMinutes = startDate.getHours() * 60 + startDate.getMinutes();
 
 		return startDateInMinutes * minuteLengthInPx + 10;
@@ -59,8 +66,8 @@
 			return 0;
 		}
 
-		const start = new Date(item.start);
-		const end = new Date(item.end);
+		const start = transformTimeToDate(item.start);
+		const end = transformTimeToDate(item.end);
 
 		return (end.getTime() - start.getTime()) / 60000;
 	};
@@ -126,8 +133,8 @@
 <Dialog.Root bind:open={dialogOpen}>
 	<Dialog.Trigger></Dialog.Trigger>
 	<Dialog.Content>
-		{#if form}
-			<TripDayItemForm data={form} />
+		{#if superValidatedData}
+			<TripDayItemForm {superValidatedData} />
 		{/if}
 	</Dialog.Content>
 </Dialog.Root>
